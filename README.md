@@ -1,0 +1,1 @@
+GC10next firmware
