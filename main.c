@@ -26,7 +26,7 @@
 #include "eeprom.h"
 #include "image.h"
 
-#define FW_VERSION "FWNX1R02"
+#define FW_VERSION "FWNX1R03"
 #define MODEMAX 2
 #define TOTAL_NUM 300
 
@@ -404,20 +404,26 @@ void dispCPM(void) {
 			for (i = gbx + 1; i<96; i++) {
 				if (gpq[i]) {
 					y = map(gpq[i], cmin, cmax, 63, 34);
-					ssd1306_draw_pixel(&disp, j++, y);
+					//ssd1306_draw_pixel(&disp, j++, y);
+					ssd1306_draw_line(&disp, j, y, j, 62);
+					j++;
 				}
 			}
 			for (i = 0; i <= gbx; i++) {
 				if (gpq[i]) {
 					y = map(gpq[i], cmin, cmax, 63, 34);
-					ssd1306_draw_pixel(&disp, j++, y);
+					//ssd1306_draw_pixel(&disp, j++, y);
+					ssd1306_draw_line(&disp, j, y, j, 62);
+					j++;
 				}
 			}
 		} else {
 			for (i = 0; i<96; i++) {
 				if (gpq[i]) {
 					y = map(gpq[i], cmin, cmax, 63, 34);
-					ssd1306_draw_pixel(&disp, j++, y);
+					//ssd1306_draw_pixel(&disp, j++, y);
+					ssd1306_draw_line(&disp, j, y, j, 62);
+					j++;
 				}
 			}
 		}
@@ -821,6 +827,9 @@ void SerCmdExec(void) {
 	if (memcmp((char*)CmdBuf, "reboot", 6) == 0) {
 		software_reset();
 	} else
+	if (memcmp((char*)CmdBuf, "factry", 6) == 0) {
+
+	} else
 	if (memcmp((char*)CmdBuf, "dfu", 3) == 0) {
 		ssd1306_clear(&disp);
 		sprintf(buf, "DFU MODE");
@@ -978,7 +987,6 @@ void lineart(void) {
 	ssd1306_draw_line(&disp, 0, 63, 127, 63);
 	ssd1306_show(&disp);
 }
-
 
 void title() {
 	ssd1306_clear(&disp);
