@@ -3,6 +3,14 @@
 Firmware source code for
 GC10next and GC10nextDual
 
+## How to build
+Compile on Pico C SDK( https://www.raspberrypi.com/documentation/pico-sdk/ )
+
+## PreBuild image
+Download
+./latestFW/gc10nx_series.uf2
+and flash it.
+
 ## ToDo
 1. Add tone generator for warning alarm.
 2. Add support commands for GCXmonitor.
