@@ -26,7 +26,7 @@
 #include "eeprom.h"
 #include "image.h"
 
-#define FW_VERSION "FWNX1R03"
+#define FW_VERSION "FWNX1R04"
 #define MODEMAX 2
 #define TOTAL_NUM 300
 
@@ -45,6 +45,7 @@ uint16_t result;
 
 static bool df = false; // Detection Flag
 
+bool isDual = false;
 bool is_sound_enabled = false;
 bool is_button_pressed = false;
 bool sout = true;
@@ -999,7 +1000,13 @@ void title() {
 	ssd1306_draw_string(&disp, 6, 0, 1, "NetIO Devices");
 
 	ssd1306_bmp_show_image(&disp, gc10nx_bmp, gc10nx_bmp_len);
+
+	if (isDual) {
+		ssd1306_draw_string(&disp, 80, 20, 1, "<Dual>");
+	}
+
 	ssd1306_show(&disp);
+
 
 	sleep_ms(220);
 
@@ -1050,13 +1057,16 @@ int main() {
 	disp.external_vcc = false;
 	ssd1306_init(&disp, 128, 64, 0x3C, i2c1);
 
+	uint8_t mn[8];
+	eeprom_read_page(OFS_MODELNAME, mn, 8);
+	if (strcmp(mn, "GC10nxd") == 0) {
+		isDual = true;
+	}
+
 	title();
 
-	// eeprom
 	uint8_t soundMode;
-
 	eeprom_read_byte(OFS_SOUND, &soundMode);
-
 	is_sound_enabled = (soundMode & 0x01) ? true : false;
 
 	eeprom_read_word(OFS_PWM_WIDTH, &hvg_pulsewidth);
