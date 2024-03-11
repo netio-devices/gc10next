@@ -15,4 +15,4 @@ and flash it.
 1. Add tone generator for warning alarm.
 2. Add support commands for GCXmonitor.
 3. Trigger I/O function (for producing quantum cats). 
-4. Make a display mode which generates physical random number based on natural radioactive decay.
+4. Make a special mode which generates physical random number based on natural radioactive decay.
